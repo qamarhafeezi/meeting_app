@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WebAPI.Data;
+using WebAPI.Interfaces;
+using WebAPI.Services;
 // using Microsoft.OpenApi.Models;
 
 namespace WebAPI
@@ -22,14 +24,15 @@ namespace WebAPI
         public Startup(IConfiguration configuration)
         {
             this.config = configuration;
-        }        
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<ITokenService, TokenService>();
             services.AddControllers();
-            services.AddDbContext<DataContext>(options => {
+            services.AddDbContext<DataContext>(options =>
+            {
                 options.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
             services.AddCors();
