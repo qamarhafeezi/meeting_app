@@ -8,9 +8,8 @@ using WebAPI.Entities;
 
 namespace WebAPI.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    
+    public class UsersController : BaseApiController
     {
         private DataContext _context { get; }
         public UsersController(DataContext context )
