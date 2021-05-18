@@ -1,4 +1,4 @@
-import { ApicallService } from './_services/apicall.service';
+import { BaseService } from './_services/base.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,15 +10,14 @@ export class AppComponent implements OnInit {
 
   title = 'client';
   users: any;
-  constructor(private service : ApicallService){
-    
+  constructor(private service: BaseService) {
+
   }
   ngOnInit(): void {
-    this.service.getUsers('users').subscribe(response => {
-      this.users = response;
-      console.log(this.users);
-    } )
+    // this.service.get('users').subscribe(response => {
+    //   this.users = response;
+    //   console.log(this.users);
+    // });
   }
-
 
 }
