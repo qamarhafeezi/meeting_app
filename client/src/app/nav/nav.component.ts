@@ -14,17 +14,17 @@ export class NavComponent implements OnInit {
   public appTitle = "Meet Me";
   public model: any = {};
   public loggedIn: boolean;
-  constructor(private service: AccountService) {
+  constructor(public accountService: AccountService) {
   }
 
   ngOnInit(): void {
 
-    this.getCurrentUser();
+    //this.getCurrentUser();
   }
 
   public login() {
 
-    this.service.login(this.model).subscribe(
+    this.accountService.login(this.model).subscribe(
       response => {
         //debugger;
         this.model = response;
@@ -38,17 +38,17 @@ export class NavComponent implements OnInit {
   }
 
   public logout() {
-    this.service.logout();
+    this.accountService.logout();
     this.loggedIn = false;
   }
 
 
 
-  getCurrentUser() {
-    this.service.currentUser$.subscribe((user: User) => {
-      this.loggedIn = !!user;
+  // getCurrentUser() {
+  //   this.service.currentUser$.subscribe((user: User) => {
+  //     this.loggedIn = !!user;
 
-    })
-  }
+  //   });
+  // }
 
 }
