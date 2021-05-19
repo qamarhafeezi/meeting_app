@@ -16,11 +16,11 @@
                     <a class="nav-link " href="#" (click)="logout()">Logout</a>
                 </li>
             </ul>
-            <div class="dropdrown" *ngIf="loggedIn">
-                <a href="" class="dropdown-toggle">Welcome user</a>
-                <div class="dropdown-menu">
-                    <a href="" class="dropdown-item">Profile</a>
-                    <a href="" class="dropdown-item">Logout</a>
+            <div class="dropdrown" *ngIf="loggedIn" dropdown>
+                <a href="#" class="dropdown-toggle" dropdownToggle>Welcome user</a>
+                <div class="dropdown-menu" *dropdownMenu>
+                    <a href="#" class="dropdown-item">Profile</a>
+                    <a href="#" class="dropdown-item">Logout</a>
                 </div>
 
             </div>
