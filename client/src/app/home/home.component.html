@@ -1,0 +1,21 @@
+<div class="container mt-5">
+    <div class="container" *ngIf="!isRegister">
+        <div class="go-center">
+            <h1>Find Your Match</h1>
+            <p class="lead">Hi, view your matches</p>
+            <div class="go-center">
+                <button class="btn btn-primary" (click)="onRegister()">Register</button>
+                <button class="btn btn-info ml-3">Learn More</button>
+            </div>
+        </div>
+    </div>
+    <div class="container" *ngIf="isRegister">
+        <div class="row justify-conten-center">
+            <div class="col-4">
+                <app-register></app-register>
+            </div>
+        </div>
+
+    </div>
+
+</div>
