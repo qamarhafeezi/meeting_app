@@ -10,6 +10,7 @@ export class AccountService {
 
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
+
   constructor(private base: BaseService) {
 
   }
@@ -27,6 +28,7 @@ export class AccountService {
       )
     );
   }
+
   logout() {
     localStorage.removeItem("user");
     this.currentUserSource.next(null);

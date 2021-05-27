@@ -13,6 +13,7 @@ namespace WebAPI.Extensions
         IConfiguration config)
         {
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IAccountService, AccountService>();
             services.AddDbContext<DataContext>(options =>
                 {
                     options.UseSqlite(config.GetConnectionString("DefaultConnection"));

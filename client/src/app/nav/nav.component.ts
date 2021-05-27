@@ -12,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavComponent implements OnInit {
 
   public appTitle = "Meet Me";
-  public model: any = {};
+  public user: User = { username: '', token: '' };
   public loggedIn: boolean;
   constructor(public accountService: AccountService) {
   }
@@ -24,11 +24,11 @@ export class NavComponent implements OnInit {
 
   public login() {
 
-    this.accountService.login(this.model).subscribe(
-      response => {
+    this.accountService.login(this.user).subscribe(
+      (response) => {
         //debugger;
-        this.model = response;
-        console.log(this.model);
+        this.user = response;
+        console.log(this.user);
         this.loggedIn = true;
       },
       error => {
@@ -41,14 +41,5 @@ export class NavComponent implements OnInit {
     this.accountService.logout();
     this.loggedIn = false;
   }
-
-
-
-  // getCurrentUser() {
-  //   this.service.currentUser$.subscribe((user: User) => {
-  //     this.loggedIn = !!user;
-
-  //   });
-  // }
 
 }

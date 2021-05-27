@@ -4,7 +4,7 @@
             <h1>Find Your Match</h1>
             <p class="lead">Hi, view your matches</p>
             <div class="go-center">
-                <button class="btn btn-primary" (click)="onRegister()">Register</button>
+                <button class="btn btn-primary" (click)="registerToggle()">Register</button>
                 <button class="btn btn-info ml-3">Learn More</button>
             </div>
         </div>
@@ -12,7 +12,7 @@
     <div class="container" *ngIf="isRegister">
         <div class="row justify-conten-center">
             <div class="col-4">
-                <app-register></app-register>
+                <app-register (cancelRegister)="cancelRegisterMode($event$)"></app-register>
             </div>
         </div>
 

@@ -15,9 +15,11 @@ namespace WebAPI.Controllers
     {
         public DataContext _context { get; }
         public ITokenService _tokenService { get; }
+        private readonly IAccountService _accountService;
 
-        public AccountController(DataContext context, ITokenService tokenService )
+        public AccountController(DataContext context, ITokenService tokenService, IAccountService accountService)
         {
+            _accountService = accountService;
             _context = context;
             _tokenService = tokenService;
         }
@@ -25,7 +27,7 @@ namespace WebAPI.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            if (await UserExists(registerDto.UserName)) return BadRequest("User Name is not available");
+            if (await _accountService.UserExists(registerDto.UserName)) return BadRequest("User Name is not available");
 
             using var hmc = new HMACSHA512();
             var user = new AppUser()
@@ -71,11 +73,6 @@ namespace WebAPI.Controllers
                 Token = _tokenService.CreateToken(user)
             };
         }
-        private async Task<bool> UserExists(string userName)
-        {
-            return await _context.Users.AnyAsync(
-                x => x.UserName == userName.ToLower()
-                );
-        }
+
     }
 }
