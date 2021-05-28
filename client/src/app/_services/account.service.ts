@@ -1,3 +1,5 @@
+import { environment } from './../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { User } from './../_models/user';
 import { BaseService } from './base.service';
 import { Injectable } from '@angular/core';
@@ -10,15 +12,29 @@ export class AccountService {
 
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
+  private baseUri = environment.baseUri;
 
-  constructor(private base: BaseService) {
+  constructor(private http: HttpClient) {
 
   }
 
   login(model: any) {
-    return this.base.post('account/login', model).pipe(
+    return this.http.post(this.baseUri + 'account/login', model).pipe(
       map((user: User) => {
         //debugger;
+        if (user) {
+          localStorage.setItem("user", JSON.stringify(user));
+          this.currentUserSource.next(user);
+          return user;
+        }
+      }
+      )
+    );
+  }
+
+  register(model: any) {
+    return this.http.post(this.baseUri + 'account/register', model).pipe(
+      map((user: User) => {
         if (user) {
           localStorage.setItem("user", JSON.stringify(user));
           this.currentUserSource.next(user);
