@@ -11,6 +11,7 @@ export class TestErrorsComponent implements OnInit {
 
   baseUri = environment.baseUri;
   constructor(private http: HttpClient) { }
+  validationErrors: string[] = [];
 
   ngOnInit(): void {
   }
@@ -42,7 +43,10 @@ export class TestErrorsComponent implements OnInit {
   get400ValidationError() {
     this.http.post(this.baseUri + "account/register", {}).subscribe(
       response => console.log(response),
-      error => console.log(error),
+      error => {
+        console.log(error);
+        this.validationErrors = error;
+      },
     )
   }
 
