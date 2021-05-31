@@ -1,3 +1,4 @@
+import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { MessagesComponent } from './messages/messages.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
@@ -16,8 +17,10 @@ const routes: Routes = [
       { path: 'lists', component: ListsComponent, canActivate: [AuthGuard] },
       { path: 'members/:id', component: MemberDetailComponent, canActivate: [AuthGuard] },
       { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
-      { path: '**', component: HomeComponent, pathMatch: 'full' }]
-  }
+    ]
+  },
+  { path: 'errors', component: TestErrorsComponent },
+  { path: '**', component: HomeComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
