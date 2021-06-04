@@ -13,5 +13,7 @@ export interface Member {
     interests: string;
     city: string;
     country: string;
+    introduction: string;
+    lookingFor: string;
     photos: Photo[];
 }

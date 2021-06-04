@@ -1,10 +1,6 @@
-<p>0</p>
-<p>1</p>
-<p>2</p>
+<div class="row">
+    <div class="container col-2" *ngFor="let member of members">
 
-<p>4</p>
-<p>5</p>
-<p>6</p>
-<p>7</p>
-<p>8</p>
-<p>9</p>
+        <app-member-card [member]="member"></app-member-card>
+    </div>
+</div>
