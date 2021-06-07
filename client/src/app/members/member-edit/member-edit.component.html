@@ -1,0 +1,73 @@
+<div class="row" *ngIf="member">
+    <div class="col-4">
+        <h2>Your Profile</h2>
+    </div>
+    <div class="col-8">
+        <div class="alert alert-info" *ngIf="profileForm.dirty">
+            <strong>Information:</strong> You have made changes. Any unsaved changes will be lost
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <img src="{{ member.photoUrl || './assets/user.png' }}" alt="{{ member.knownAs }}"
+                class="card-img-top img-thumbnail" />
+            <div class="card-body">
+                <div>
+                    <strong>Location:</strong>
+                    <p>{{ member.city }}, {{ member.country }}</p>
+                </div>
+                <div>
+                    <strong>Age:</strong>
+                    <p>{{ member.age }}</p>
+                </div>
+                <div>
+                    <strong>Last Active:</strong>
+                    <p>{{ member.lastActive }}</p>
+                </div>
+                <div>
+                    <strong>Member since:</strong>
+                    <p>{{ member.created }}</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group col-4">
+                    <button [disabled]="!profileForm.dirty" form="editForm"
+                        class="btn btn-success btn-block">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <tabset class="member-tabset">
+            <tab heading="About {{ member.knownAs }}">
+                <form #profileForm="ngForm" id="editForm" (ngSubmit)="updateProfile()">
+                    <h4>Description</h4>
+                    <textarea name="introduction" class="form-control" [(ngModel)]="member.introduction" class="col-12"
+                        rows="6">
+                </textarea>
+                    <h4>Looking For</h4>
+                    <textarea name="lookingFor" class="form-control" [(ngModel)]="member.lookingFor" class="col-12"
+                        rows="6">
+                </textarea>
+                    <h4>Interests</h4>
+                    <textarea name="interests" placeholder="Interests" class="form-control"
+                        [(ngModel)]="member.interests" class="col-12" rows="6">
+                </textarea>
+                    <div class="form-inline">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" name="city" placeholder="City"
+                            [(ngModel)]="member.city">
+                        <label for="country">Country</label>
+                        <input type="text" class="form-control " name="country" placeholder="Country"
+                            [(ngModel)]="member.country">
+                    </div>
+                </form>
+            </tab>
+
+            <tab heading="Photos">
+                <p>Photo editor comes here</p>
+            </tab>
+
+        </tabset>
+    </div>
+</div>

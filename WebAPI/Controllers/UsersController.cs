@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -40,7 +41,19 @@ namespace WebAPI.Controllers
             return _mapper.Map<MemberDto>(users);
         }
 
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+        {
+            var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            AppUser appUser = await _userRepository.GetUserByUserNameAsync(userName);
+            _mapper.Map(memberUpdateDto, appUser);
+            _userRepository.Update(appUser);
 
+            if (await _userRepository.SaveAllAsync()) return NoContent();
+            else
+                return BadRequest();
+
+        }
         // [HttpGet("{id}")]
         // public async Task<ActionResult<AppUser>> GetUser(int id)
         // {
