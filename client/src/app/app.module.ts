@@ -1,3 +1,4 @@
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { SharedModule } from './_modules/shared.module';
@@ -49,7 +50,8 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, multi: true, useClass: ErrorInterceptor },
-    { provide: HTTP_INTERCEPTORS, multi: true, useClass: JwtInterceptor }
+    { provide: HTTP_INTERCEPTORS, multi: true, useClass: JwtInterceptor },
+    { provide: HTTP_INTERCEPTORS, multi: true, useClass: LoadingInterceptor }
   ],
   bootstrap: [AppComponent]
 })

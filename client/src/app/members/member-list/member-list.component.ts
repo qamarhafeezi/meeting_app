@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MembersService } from './../../_services/members.service';
 import { Component, OnInit } from '@angular/core';
 import { Member } from 'src/app/_models/member';
@@ -10,9 +11,15 @@ import { Member } from 'src/app/_models/member';
 export class MemberListComponent implements OnInit {
 
   public members: Member[];
-  constructor(private memberService: MembersService) { }
+  constructor(private memberService: MembersService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+
+    //this.spinner.show();
+    // setTimeout(() => {
+    //   /** spinner ends after 5 seconds */
+    //   this.spinner.hide();
+    // }, 1000);
 
     this.loadMembers();
   }
