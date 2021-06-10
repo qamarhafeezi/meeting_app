@@ -1,0 +1,7 @@
+img {
+    width:50px;
+    max-height:50px;
+    margin: 5px;
+    border: 2px solid white;
+    display: inline;
+}

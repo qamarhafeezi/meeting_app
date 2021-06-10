@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class NavComponent implements OnInit {
 
   public appTitle = "Meet Me";
-  public user: User = { userName: '', token: '' };
+  public user: User = { userName: '', token: '', photoUrl: '' };
   public loggedIn: boolean;
   constructor(public accountService: AccountService, private router: Router,
     private toastr: ToastrService) {

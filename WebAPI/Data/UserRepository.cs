@@ -36,7 +36,9 @@ namespace WebAPI.Data
 
         public async Task<bool> SaveAllAsync()
         {
-            return await _context.SaveChangesAsync() > 0;
+            int recordCount = await _context.SaveChangesAsync();
+
+            return recordCount > 0 ? true : false;
         }
 
         public void Update(AppUser user)

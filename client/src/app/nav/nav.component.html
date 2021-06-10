@@ -19,13 +19,14 @@
                 </li>
             </ul>
             <div class="dropdrown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
-                <a href="javascript:void(0)" class="dropdown-toggle" dropdownToggle>Welcome {{user.userName |
+                <img src="{{user.photoUrl}}">
+                <a href="javascript:void(0)" class="dropdown-toggle" dropdownToggle>Welcome
+                    {{user.userName |
                     titlecase}} </a>
                 <div class="dropdown-menu" *dropdownMenu>
                     <a routerLink="/member/edit" href="#" class="dropdown-item">Profile</a>
                     <a href="#" class="dropdown-item" (click)="logout()">Logout</a>
                 </div>
-
             </div>
             <form #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="false"
                 *ngIf="(accountService.currentUser$ | async) === null">
