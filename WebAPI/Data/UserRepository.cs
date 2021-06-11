@@ -1,8 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using WebAPI.DTOs;
 using WebAPI.Entities;
+using WebAPI.Helpers;
 using WebAPI.Interfaces;
 
 namespace WebAPI.Data
@@ -10,8 +14,10 @@ namespace WebAPI.Data
     public class UserRepository : IUserRepository
     {
         public DataContext _context { get; }
-        public UserRepository(DataContext context)
+        public IMapper _mapper { get; }
+        public UserRepository(DataContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
 
@@ -44,6 +50,21 @@ namespace WebAPI.Data
         public void Update(AppUser user)
         {
             _context.Entry(user).State = EntityState.Modified;
+        }
+
+        public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
+        {
+            var query = _context.Users
+              .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).AsNoTracking();
+            return await PagedList<MemberDto>.CreateAsync(query, userParams.PageNumber,
+            userParams.PageSize);
+        }
+
+        public async Task<MemberDto> GetMemberAsync(string userName)
+        {
+            return await _context.Users
+              .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).
+              SingleOrDefaultAsync(x => x.UserName == userName);
         }
     }
 }
