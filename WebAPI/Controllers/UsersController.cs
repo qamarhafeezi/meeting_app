@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
 using WebAPI.DTOs;
 using WebAPI.Entities;
+using WebAPI.Extensions;
 using WebAPI.Helpers;
 using WebAPI.Interfaces;
 
@@ -31,10 +32,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            var usersList = await _userRepository.GetUsersAsync();
-            var members = _mapper.Map<IEnumerable<MemberDto>>(usersList);
+            // var usersList = await _userRepository.GetUsersAsync();
+            // var members = _mapper.Map<IEnumerable<MemberDto>>(usersList);
+            // return Ok(members);
+            var members = await _userRepository.GetMembersAsync(userParams);
+            Response.AddPaginationHeader(members.CurrentPage, members.PageSize,
+            members.Count, members.TotalPages);
             return Ok(members);
         }
 
