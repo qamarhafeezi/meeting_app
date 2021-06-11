@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
             // return Ok(members);
             var members = await _userRepository.GetMembersAsync(userParams);
             Response.AddPaginationHeader(members.CurrentPage, members.PageSize,
-            members.Count, members.TotalPages);
+            members.TotalCount, members.TotalPages);
             return Ok(members);
         }
 

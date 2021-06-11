@@ -17,7 +17,7 @@ namespace WebAPI.Helpers
         {
             TotalCount = totalCount;
             PageSize = pageSize;
-            TotalPages = (int)Math.Ceiling((double)((totalCount) / pageSize));
+            TotalPages = (int)Math.Ceiling((totalCount / (double)pageSize));
             CurrentPage = currentPage;
 
             AddRange(items);
