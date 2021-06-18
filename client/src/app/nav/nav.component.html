@@ -19,7 +19,7 @@
                 </li>
             </ul>
             <div class="dropdrown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
-                <img src="{{user.photoUrl}}">
+                <img src="{{user.photoUrl || './assets/user.png'}}">
                 <a href="javascript:void(0)" class="dropdown-toggle" dropdownToggle>Welcome
                     {{user.userName |
                     titlecase}} </a>

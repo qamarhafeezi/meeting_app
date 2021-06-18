@@ -37,6 +37,17 @@ namespace WebAPI.Controllers
             // var usersList = await _userRepository.GetUsersAsync();
             // var members = _mapper.Map<IEnumerable<MemberDto>>(usersList);
             // return Ok(members);
+            var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            AppUser appUser = await _userRepository.GetUserByUserNameAsync(userName);
+            if (appUser.Gender != null)
+            {
+                userParams.Gender = appUser.Gender.ToLower() == "male" ? "female" : "male";
+            }
+            else
+            {
+                userParams.Gender = "female";
+            }
+            userParams.CurrentUserName = appUser.UserName;
             var members = await _userRepository.GetMembersAsync(userParams);
             Response.AddPaginationHeader(members.CurrentPage, members.PageSize,
             members.TotalCount, members.TotalPages);

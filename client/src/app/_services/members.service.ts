@@ -1,3 +1,4 @@
+import { UserParams } from './../_models/user-params';
 import { Member } from './../_models/member';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -16,26 +17,29 @@ export class MembersService {
 
   constructor(private http: HttpClient) { }
 
-  getMembers(currentPage?: number, itemsPerPage?: number) {
+  getMembers(userParams: UserParams) {
     //return this.http.get<Member[]>(this.baseUri + 'users');
-    let userParams = new HttpParams();
-    if (currentPage !== null && itemsPerPage !== null) {
-      //debugger;
-      userParams = userParams.append("pageNumber", currentPage.toString());
-      userParams = userParams.append("pageSize", itemsPerPage.toString());
-    }
-
-    return this.http.get<Member[]>(this.baseUri + 'users', { observe: 'response', params: userParams }).
+    let httpParams = this.setHttpParams(userParams);
+    return this.http.get<Member[]>(this.baseUri + 'users', { observe: 'response', params: httpParams }).
       pipe(
         map(response => {
           this.paginatedResult.result = response.body;
           if (response.headers.get("Pagination") != null) {
             this.paginatedResult.pagination = JSON.parse(response.headers.get("Pagination"));
           }
-
           return this.paginatedResult;
 
         }));
+  }
+
+  setHttpParams(userParams: UserParams): HttpParams {
+
+    let httpParams = new HttpParams();
+    if (userParams.pageSize !== null && userParams.pageNumber !== null) {
+      httpParams = httpParams.append("pageNumber", userParams.pageNumber.toString());
+      httpParams = httpParams.append("pageSize", userParams.pageSize.toString());
+    }
+    return httpParams;
   }
 
   getMember(userName: string) {
